@@ -5,12 +5,14 @@ const config = require('../config/config')
 
 const db = {}
 
-const sequelize = new Sequelize(
-  config.DB.DATABASE,
-  config.DB.USER,
-  config.DB.PASSWORD,
-  config.DB.OPTIONS
-)
+// const sequelize = new Sequelize(
+//   config.DB.DATABASE,
+//   config.DB.USER,
+//   config.DB.PASSWORD,
+//   config.DB.OPTIONS
+// )
+
+const sequelize = new Sequelize('postgres://splfjjjo:GRY98xi8ZOg8l4eAeik5rk29UEOjAlDd@horton.elephantsql.com:5432/splfjjjo')
 
 fs
   .readdirSync(__dirname)
