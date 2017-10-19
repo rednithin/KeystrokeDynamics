@@ -23,7 +23,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(150),
         unique: true
       },
-      password: DataTypes.STRING
+      password: DataTypes.STRING,
+      rhythm: DataTypes.STRING
     },
     {
       hooks: {

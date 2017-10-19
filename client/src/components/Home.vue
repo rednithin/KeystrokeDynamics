@@ -6,7 +6,7 @@
         label="Enter here"
         @input="tapThat"
         @blur="mergeThat"
-        v-model="username"
+        v-model="email"
       ></v-text-field>
       <br>
       <v-text-field
@@ -22,40 +22,40 @@ import tappy from 'tappy'
 export default {
   data () {
     return {
-      password: null,
-      newPassword: null,
-      username: ''
+      rhythm: null,
+      newRhythm: null,
+      email: ''
     }
   },
   methods: {
     tapThat () {
-      this.newPassword.tap()
+      this.newRhythm.tap()
     },
     mergeThat () {
-      this.newPassword.done()
-      if (!this.password) {
-        this.password = this.newPassword
-        this.username = ''
-        this.newPassword = new tappy.Rhythm()
+      this.newRhythm.done()
+      if (!this.rhythm) {
+        this.rhythm = this.newRhythm
+        this.email = ''
+        this.newRhythm = new tappy.Rhythm()
         return
       }
-      if (this.password.length === this.newPassword.length) {
+      if (this.rhythm.length === this.newRhythm.length) {
         let similarity =
-          tappy.compare(this.password, this.newPassword, true) * 100
+          tappy.compare(this.rhythm, this.newRhythm, true) * 100
         console.log(similarity)
         if (similarity > 80.0) {
-          this.password = tappy.average(this.password, this.newPassword)
+          this.rhythm = tappy.average(this.rhythm, this.newRhythm)
           console.log('SUCCESS')
         }
       } else {
         console.log('Failed')
       }
-      this.username = ''
-      this.newPassword = new tappy.Rhythm()
+      this.email = ''
+      this.newRhythm = new tappy.Rhythm()
     }
   },
   mounted () {
-    this.newPassword = new tappy.Rhythm()
+    this.newRhythm = new tappy.Rhythm()
   }
 }
 </script>

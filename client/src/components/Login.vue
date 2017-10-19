@@ -10,6 +10,8 @@
               class="text-field"
               label="Email"
               v-model="email"
+              @input="tapThat"
+              @blur="finish"
             ></v-text-field>
             <v-text-field
               type="password"
@@ -29,10 +31,12 @@
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
+import tappy from 'tappy'
 export default {
   data () {
     return {
       email: '',
+      rhythm: null,
       password: '',
       error: ''
     }
@@ -46,7 +50,8 @@ export default {
         this.error = ''
         const response = await AuthenticationService.login({
           email: this.email,
-          password: this.password
+          password: this.password,
+          rhythm: JSON.stringify(this.rhythm)
         })
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
@@ -54,7 +59,16 @@ export default {
       } catch (e) {
         this.error = e.response.data.error
       }
+    },
+    tapThat () {
+      if (this.rhythm != null) { this.rhythm.tap() }
+    },
+    finish () {
+      this.rhythm.done()
     }
+  },
+  mounted () {
+    this.rhythm = new tappy.Rhythm()
   }
 }
 </script>
