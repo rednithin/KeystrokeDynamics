@@ -7,8 +7,9 @@ module.exports = {
     USER: process.env.SQLUSER || 'root',
     PASSWORD: process.env.SQLPASSWORD || '528751011',
     OPTIONS: {
-      dialect: process.env.DIALECT || 'mysql',
-      host: process.env.HOST || 'localhost'
+      dialect: process.env.SQLDIALECT || 'mysql',
+      host: process.env.SQLHOST || 'localhost',
+      port: process.env.SQLPORT || '3306'
     }
   },
   AUTH: {
