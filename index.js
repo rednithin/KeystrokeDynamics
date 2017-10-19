@@ -1,13 +1,12 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const config = require('./config/config')
+const { sequelize } = require('./models')
 
 const app = express()
 app.use(bodyParser.json())
 
-app.get('/', (req, res) => {
-  res.send({'name': 'Hello'})
-})
+require('./routes/routes.js')(app)
 
 if (config.ENV === 'production') {
   // Express will serve up production assets
@@ -23,4 +22,6 @@ if (config.ENV === 'production') {
   })
 }
 
-app.listen(config.PORT)
+sequelize.sync({ force: true }).then(() => {
+  app.listen(config.PORT)
+})

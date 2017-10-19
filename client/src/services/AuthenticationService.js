@@ -1,13 +1,10 @@
 import axios from 'axios'
 
 export default {
-  login () {
-    return axios.get('auth/linkedin')
+  login (credentials) {
+    return axios.post('api/login', credentials)
   },
-  logout () {
-    return axios.get('api/logout')
-  },
-  getUser () {
-    return axios.get('api/current_user')
+  register (credentials) {
+    return axios.post('api/register', credentials)
   }
 }

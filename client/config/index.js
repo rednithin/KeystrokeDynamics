@@ -14,7 +14,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api/*': {
-        target: 'http://localhost:' + process.env.PORT || '5000',
+        target: 'http://localhost:' + (process.env.PORT || '5000'),
         changeOrigin: true
       }
     },
@@ -39,7 +39,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api/*': {
-        target: 'http://localhost:' + process.env.PORT || '5000',
+        target: 'http://localhost:' + (process.env.PORT || '5000'),
         changeOrigin: true
       }
     },
