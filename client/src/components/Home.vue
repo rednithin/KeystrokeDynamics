@@ -1,18 +1,7 @@
 <template>
-  <v-layout row wrap>
-    <v-flex d-flex xs12 sm6>
-      <v-text-field
-        name="input-1"
-        label="Enter here"
-        @input="tapThat"
-        @blur="mergeThat"
-        v-model="email"
-      ></v-text-field>
-      <br>
-      <v-text-field
-        name="input-2"
-        label="Label Text"
-      ></v-text-field>
+  <v-layout row column>
+    <v-flex xs12 sm6>
+      This is the Home Page.
     </v-flex>
   </v-layout>
 </template>

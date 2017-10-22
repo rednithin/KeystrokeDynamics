@@ -23,8 +23,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(150),
         unique: true
       },
-      password: DataTypes.STRING,
-      rhythm: DataTypes.STRING
+      password: DataTypes.STRING(5000),
+      rhythm: DataTypes.STRING(5000)
     },
     {
       hooks: {
@@ -35,8 +35,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   )
 
-  User.prototype.comparePassword = function (password) {
-    return bcrypt.compareAsync(password, this.password)
+  User.prototype.comparePassword = async function (password) {
+    console.log('IM IN')
+    let result = bcrypt.compareAsync(password, this.password)
+    console.log('IM OUT')
+    return result
   }
   return User
 }
