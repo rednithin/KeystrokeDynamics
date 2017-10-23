@@ -4,8 +4,7 @@ module.exports = {
   authenticate (req, res, next) {
     const schema = {
       email: Joi.string().email(),
-      password: Joi.string().regex(new RegExp('^.{8,32}$')),
-      rhythm: Joi.string()
+      password: Joi.string().regex(new RegExp('^.{8,32}$'))
     }
     const {error, value} = Joi.validate(req.body, schema)
 

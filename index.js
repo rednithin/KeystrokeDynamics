@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const config = require('./config/config')
 const { sequelize } = require('./models')
+const { Admin } = require('./models')
 
 const app = express()
 app.use(bodyParser.json())
@@ -23,5 +24,6 @@ if (config.ENV === 'production') {
 }
 
 sequelize.sync({force: true}).then(() => {
+  Admin.create({name: 'Nithin Reddy', email: 'red@gmail.com', password: '528751011'})
   app.listen(config.PORT)
 })

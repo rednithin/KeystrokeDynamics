@@ -48,14 +48,14 @@ export default {
     async login () {
       try {
         this.error = ''
-        const response = await AuthenticationService.login({
+        const response = await AuthenticationService.userLogin({
           email: this.email,
           password: this.password,
           rhythm: JSON.stringify(this.rhythm)
         })
-        this.$store.dispatch('setToken', response.data.token)
+        this.$store.dispatch('setUserToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
-        this.navigateTo({name: 'Home'})
+        this.navigateTo({name: 'UserProfile'})
       } catch (e) {
         this.error = e.response.data.error
       }

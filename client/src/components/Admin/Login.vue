@@ -3,7 +3,7 @@
     <v-flex xs12 offset-sm1 sm10 offset-md2 md8>
       <div class="white elevation-2">
         <v-toolbar flat dense class='indigo lighten-1' dark>
-          <v-toolbar-title>Register</v-toolbar-title>
+          <v-toolbar-title>Admin Login</v-toolbar-title>
         </v-toolbar>
         <div class="pl-4 pr-4 pt-3 pb-0">
             <v-text-field
@@ -19,7 +19,7 @@
               label="Password"
               v-model="password"
             ></v-text-field>
-            <v-btn dark class="indigo lighten-1" @click="register">Register</v-btn>
+            <v-btn dark class="indigo lighten-1" @click="login">Login</v-btn>
             <br>
             <p>{{ error }}</p>
             <br>
@@ -31,12 +31,10 @@
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
-import tappy from 'tappy'
 export default {
   data () {
     return {
       email: '',
-      rhythm: null,
       password: '',
       error: ''
     }
@@ -45,30 +43,20 @@ export default {
     navigateTo (route) {
       this.$router.push(route)
     },
-    async register () {
+    async login () {
       try {
         this.error = ''
-        const response = await AuthenticationService.register({
+        const response = await AuthenticationService.adminLogin({
           email: this.email,
-          password: this.password,
-          rhythm: JSON.stringify(this.rhythm)
+          password: this.password
         })
-        this.$store.dispatch('setToken', response.data.token)
-        this.$store.dispatch('setUser', response.data.user)
-        this.navigateTo({name: 'Home'})
+        this.$store.dispatch('setAdminToken', response.data.token)
+        this.$store.dispatch('setAdmin', response.data.admin)
+        this.navigateTo({name: 'AdminProfile'})
       } catch (e) {
         this.error = e.response.data.error
       }
-    },
-    tapThat () {
-      if (this.rhythm != null) { this.rhythm.tap() }
-    },
-    finish () {
-      this.rhythm.done()
     }
-  },
-  mounted () {
-    this.rhythm = new tappy.Rhythm()
   }
 }
 </script>

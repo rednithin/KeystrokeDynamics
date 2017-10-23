@@ -1,10 +1,13 @@
 import axios from 'axios'
 
 export default {
-  login (credentials) {
-    return axios.post('api/login', credentials)
+  userLogin (credentials) {
+    return axios.post('api/user/login', credentials)
   },
-  register (credentials) {
-    return axios.post('api/register', credentials)
+  adminLogin (credentials) {
+    return axios.post('api/admin/login', credentials)
+  },
+  userRegister (credentials) {
+    return axios.post('api/user/register', credentials)
   }
 }

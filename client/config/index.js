@@ -16,6 +16,10 @@ module.exports = {
       '/api/*': {
         target: 'http://localhost:' + (process.env.PORT || '5000'),
         changeOrigin: true
+      },
+      '/api/*/*': {
+        target: 'http://localhost:' + (process.env.PORT || '5000'),
+        changeOrigin: true
       }
     },
     productionSourceMap: true,
@@ -39,6 +43,10 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api/*': {
+        target: 'http://localhost:' + (process.env.PORT || '5000'),
+        changeOrigin: true
+      },
+      '/api/*/*': {
         target: 'http://localhost:' + (process.env.PORT || '5000'),
         changeOrigin: true
       }

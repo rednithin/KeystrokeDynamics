@@ -7,13 +7,21 @@
       enable-resize-watcher
       app
     >
+      <v-flex ml-3 mt-2 mb-0>
+        <v-switch
+          color="indigo"
+          label="Admin Mode"
+          v-model="isAdmin"
+          @change="toggleMode"
+        ></v-switch>
+      </v-flex>
       <v-list dense>
-        <v-list-tile @click="navigateTo({name: 'FindUsers'})">
+        <v-list-tile @click="navigateTo({name: 'Home'})">
           <v-list-tile-action>
             <v-icon>dashboard</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Find Users</v-list-tile-title>
+            <v-list-tile-title>Home</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -26,25 +34,39 @@
       <v-spacer/>
       <v-toolbar-items>
         <v-btn
-          v-if="!$store.state.isLoggedIn" 
+          v-if="!$store.state.isUserLoggedIn && !isAdmin" 
           flat 
           dark
-          @click="navigateTo({name: 'Login'})"
-        >Login
+          @click="navigateTo({name: 'UserLogin'})"
+        >User Login
         </v-btn>
         <v-btn 
-          v-if="!$store.state.isLoggedIn" 
+          v-if="!$store.state.isUserLoggedIn && !isAdmin" 
           flat 
           dark
-          @click="navigateTo({name: 'Register'})"
-        >SignUp
+          @click="navigateTo({name: 'UserRegister'})"
+        >User Register
         </v-btn>
         <v-btn
-          v-else
+          v-if="$store.state.isUserLoggedIn && !isAdmin"
           flat 
           dark
-          @click="logout()"
-        >Logout
+          @click="userLogout()"
+        >User Logout
+        </v-btn>
+        <v-btn
+          v-if="!$store.state.isAdminLoggedIn && isAdmin" 
+          flat 
+          dark
+          @click="navigateTo({name: 'AdminLogin'})"
+        >Admin Login
+        </v-btn>
+        <v-btn
+          v-if="$store.state.isAdminLoggedIn && isAdmin"
+          flat 
+          dark
+          @click="adminLogout()"
+        >Admin Logout
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -65,15 +87,24 @@
 export default {
   name: 'app',
   data: () => ({
-    drawer: false
+    drawer: false,
+    isAdmin: false
   }),
   methods: {
     navigateTo (route) {
       this.$router.push(route)
     },
-    logout () {
-      this.$store.dispatch('setToken', null)
+    userLogout () {
+      this.$store.dispatch('setUserToken', null)
       this.$store.dispatch('setUser', null)
+      this.navigateTo({ name: 'Home' })
+    },
+    adminLogout () {
+      this.$store.dispatch('setAdminToken', null)
+      this.$store.dispatch('setAdmin', null)
+      this.navigateTo({ name: 'Home' })
+    },
+    toggleMode () {
       this.navigateTo({ name: 'Home' })
     }
   }
