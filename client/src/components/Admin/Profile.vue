@@ -1,10 +1,7 @@
 <template>
   <div>
-    <v-layout justify-center align-center v-if="!$store.state.isAdminLoggedIn">
-      <v-flex>
-        Sorry you need to login first.
-      </v-flex>
-    </v-layout>
+    <warning v-if="!$store.state.isAdminLoggedIn">
+    </warning>
     <v-layout justify-center align-center v-else>
       <v-flex>
         Welcome <span>{{ $store.state.admin.name }}</span> Admin!!!
@@ -14,7 +11,11 @@
 </template>
 
 <script>
+import Warning from '@/components/Warning'
 export default {
+  components: {
+    Warning
+  }
 }
 </script>
 

@@ -4,6 +4,8 @@ import Home from '@/components/Home'
 import UserLogin from '@/components/User/Login'
 import AdminLogin from '@/components/Admin/Login'
 import UserRegister from '@/components/User/Register'
+import UserWall from '@/components/User/Wall'
+import UserCreatePost from '@/components/User/CreatePost'
 import UserFindUsers from '@/components/User/FindUsers'
 import UserProfile from '@/components/User/Profile'
 import AdminProfile from '@/components/Admin/Profile'
@@ -31,6 +33,16 @@ export default new Router({
       path: '/user/register',
       name: 'UserRegister',
       component: UserRegister
+    },
+    {
+      path: '/user/wall',
+      name: 'UserWall',
+      component: UserWall
+    },
+    {
+      path: '/user/createpost',
+      name: 'UserCreatePost',
+      component: UserCreatePost
     },
     {
       path: '/user/findusers',

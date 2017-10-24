@@ -1,40 +1,36 @@
 <template>
   <v-layout column>
-    <v-flex xs12 offset-sm1 sm10 offset-md2 md8>
-      <div class="white elevation-2">
-        <v-toolbar flat dense class='indigo lighten-1' dark>
-          <v-toolbar-title>Register</v-toolbar-title>
-        </v-toolbar>
-        <div class="pl-4 pr-4 pt-3 pb-0">
-          <v-text-field
-            class="text-field"
-            label="Name"
-            v-model="name"
-          ></v-text-field>
-          <v-text-field
-            class="text-field"
-            label="Email"
-            v-model="email"
-            @input="tapThat"
-            @blur="finish"
-          ></v-text-field>
-          <v-text-field
-            type="password"
-            class="text-field"
-            label="Password"
-            v-model="password"
-          ></v-text-field>
-          <v-btn dark class="indigo lighten-1" @click="register">Register</v-btn>
-          <br>
-          <p>{{ error }}</p>
-          <br>
-        </div>
-      </div>
+    <v-flex xs12 offset-md3 md6>
+      <panel title="Register">
+        <v-text-field
+          class="text-field"
+          label="Name"
+          v-model="name"
+        ></v-text-field>
+        <v-text-field
+          class="text-field"
+          label="Email"
+          v-model="email"
+          @input="tapThat"
+          @blur="finish"
+        ></v-text-field>
+        <v-text-field
+          type="password"
+          class="text-field"
+          label="Password"
+          v-model="password"
+        ></v-text-field>
+        <v-btn dark class="indigo lighten-1" @click="register">Register</v-btn>
+        <br>
+        <p>{{ error }}</p>
+        <br>
+      </panel>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
+import Panel from '@/components/Panel'
 import AuthenticationService from '@/services/AuthenticationService'
 import tappy from 'tappy'
 export default {
@@ -46,6 +42,9 @@ export default {
       password: '',
       error: ''
     }
+  },
+  components: {
+    Panel
   },
   methods: {
     navigateTo (route) {

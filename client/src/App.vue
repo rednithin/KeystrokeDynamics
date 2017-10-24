@@ -16,12 +16,20 @@
         ></v-switch>
       </v-flex>
       <v-list dense>
-        <v-list-tile @click="navigateTo({name: 'Home'})">
+        <v-list-tile @click="navigateTo({name: 'UserWall'})" v-if="$store.state.isUserLoggedIn">
           <v-list-tile-action>
             <v-icon>dashboard</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Home</v-list-tile-title>
+            <v-list-tile-title>Wall</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="navigateTo({name: 'UserFindUsers'})" v-if="$store.state.isUserLoggedIn">
+          <v-list-tile-action>
+            <v-icon>dashboard</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Find Users</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
