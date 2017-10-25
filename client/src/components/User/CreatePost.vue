@@ -1,5 +1,7 @@
 <template>
-  <v-layout column>
+  <warning v-if="!$store.state.isUserLoggedIn">
+  </warning>
+  <v-layout column v-else>
     <v-flex xs12 offset-md3 md6>
       <panel title="Create a post">
         <v-text-field
@@ -30,6 +32,7 @@
 </template>
 
 <script>
+import Warning from '@/components/Warning'
 import UserServices from '@/services/UserServices'
 import Panel from '@/components/Panel'
 export default {
@@ -37,13 +40,15 @@ export default {
     return {
       song: {
         title: null,
-        description: null
+        description: null,
+        UserId: this.$store.state.user.id
       },
       required: (value) => !!value || 'Required.'
     }
   },
   components: {
-    Panel
+    Panel,
+    Warning
   },
   methods: {
     async createPost () {

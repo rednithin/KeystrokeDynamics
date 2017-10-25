@@ -1,5 +1,7 @@
 <template>
-  <v-layout column>
+  <warning v-if="!$store.state.isUserLoggedIn">
+  </warning>
+  <v-layout column v-else>
     <v-flex xs12>
       <panel title="Posts">
         <v-btn
@@ -17,11 +19,14 @@
         <v-container fluid grid-list-md>
           <v-layout row wrap>
             <v-flex d-flex xs12 md6 v-for="post in posts" :key="post.id">
-              <v-card color="indigo darken-1" dark>
-                <v-card-title primary class="title">{{post.title}}</v-card-title>
-                <v-card-text>
-                  {{post.description}}
-                </v-card-text>
+              <v-card>
+                <v-card-title primary-title>
+                  <div>
+                    <div class="headline" style="text-align: left;">{{post.title}}</div>
+                    <div class="grey--text" style="text-align: left;">Created by User {{post.UserId}}</div>
+                    <div style="text-align: left;">{{post.description}}</div>  
+                  </div>
+                </v-card-title>                                  
               </v-card>
             </v-flex>
           </v-layout>
@@ -32,11 +37,13 @@
 </template>
 
 <script>
+import Warning from '@/components/Warning'
 import UserServices from '@/services/UserServices'
 import Panel from '@/components/Panel'
 export default {
   components: {
-    Panel
+    Panel,
+    Warning
   },
   data () {
     return {

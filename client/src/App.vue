@@ -16,22 +16,30 @@
         ></v-switch>
       </v-flex>
       <v-list dense>
-        <router-link tag="v-list-tile" :to="{name: 'UserWall'}" v-if="$store.state.isUserLoggedIn">
+        <v-list-tile :to="{name: 'UserProfile'}" v-if="$store.state.isUserLoggedIn && !isAdmin">
+          <v-list-tile-action>
+            <v-icon>dashboard</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Profile</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile :to="{name: 'UserWall'}" v-if="$store.state.isUserLoggedIn && !isAdmin">
           <v-list-tile-action>
             <v-icon>dashboard</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Wall</v-list-tile-title>
           </v-list-tile-content>
-        </router-link>
-        <router-link :to="{name: 'UserFindUsers'}" v-if="$store.state.isUserLoggedIn">
+        </v-list-tile>
+        <v-list-tile :to="{name: 'UserFindUsers'}" v-if="$store.state.isUserLoggedIn && !isAdmin">
           <v-list-tile-action>
             <v-icon>dashboard</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Find Users</v-list-tile-title>
           </v-list-tile-content>
-        </router-link>
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar color="indigo" dark app fixed clipped-left>

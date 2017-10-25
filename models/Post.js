@@ -7,5 +7,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(5000)
     }
   })
+  Post.associate = function (models) {
+    Post.belongsTo(models.User)
+  }
   return Post
 }

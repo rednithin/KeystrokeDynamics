@@ -1,9 +1,11 @@
 <template>
-  <v-layout column>
+  <warning v-if="!$store.state.isUserLoggedIn">
+  </warning>
+  <v-layout column v-else>
     <v-flex xs12>
       <panel title="Search">
         <v-text-field
-          label="Search"
+          label="Type Friend's Name"
           v-model="user.name"
           @input="onSearchInput"
         ></v-text-field>
@@ -39,11 +41,13 @@
 </template>
 
 <script>
+import Warning from '@/components/Warning'
 import UserServices from '@/services/UserServices'
 import Panel from '@/components/Panel'
 export default {
   components: {
-    Panel
+    Panel,
+    Warning
   },
   data () {
     return {

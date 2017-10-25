@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <warning v-if="!$store.state.isUserLoggedIn">
-    </warning>
-    <v-layout justify-center align-center v-else>
-      <v-flex>
-        Welcome <span>{{ $store.state.user.name }}</span> !!!
-      </v-flex>
-    </v-layout>
-  </div>
+  <warning v-if="!$store.state.isUserLoggedIn">
+  </warning>
+  <v-layout justify-center align-center v-else>
+    <v-flex>
+      Welcome <span>{{ $store.state.user.name }}</span> !!!
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
