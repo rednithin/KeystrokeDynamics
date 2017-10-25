@@ -16,43 +16,43 @@
         ></v-switch>
       </v-flex>
       <v-list dense>
-        <v-list-tile @click="navigateTo({name: 'UserWall'})" v-if="$store.state.isUserLoggedIn">
+        <router-link tag="v-list-tile" :to="{name: 'UserWall'}" v-if="$store.state.isUserLoggedIn">
           <v-list-tile-action>
             <v-icon>dashboard</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Wall</v-list-tile-title>
           </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile @click="navigateTo({name: 'UserFindUsers'})" v-if="$store.state.isUserLoggedIn">
+        </router-link>
+        <router-link :to="{name: 'UserFindUsers'}" v-if="$store.state.isUserLoggedIn">
           <v-list-tile-action>
             <v-icon>dashboard</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Find Users</v-list-tile-title>
           </v-list-tile-content>
-        </v-list-tile>
+        </router-link>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar color="indigo" dark app fixed clipped-left>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title id="title" @click="navigateTo({name: 'Home'})">
+      <router-link tag="v-toolbar-title" id="title" :to="{name: 'Home'}">
         Socio
-      </v-toolbar-title>
+      </router-link>
       <v-spacer/>
       <v-toolbar-items>
         <v-btn
           v-if="!$store.state.isUserLoggedIn && !isAdmin" 
           flat 
           dark
-          @click="navigateTo({name: 'UserLogin'})"
+          :to="{name: 'UserLogin'}"
         >User Login
         </v-btn>
         <v-btn 
           v-if="!$store.state.isUserLoggedIn && !isAdmin" 
           flat 
           dark
-          @click="navigateTo({name: 'UserRegister'})"
+          :to="{name: 'UserRegister'}"
         >User Register
         </v-btn>
         <v-btn
@@ -66,7 +66,7 @@
           v-if="!$store.state.isAdminLoggedIn && isAdmin" 
           flat 
           dark
-          @click="navigateTo({name: 'AdminLogin'})"
+          :to="{name: 'AdminLogin'}"
         >Admin Login
         </v-btn>
         <v-btn
@@ -99,21 +99,18 @@ export default {
     isAdmin: false
   }),
   methods: {
-    navigateTo (route) {
-      this.$router.push(route)
-    },
     userLogout () {
       this.$store.dispatch('setUserToken', null)
       this.$store.dispatch('setUser', null)
-      this.navigateTo({ name: 'Home' })
+      this.$router.push({ name: 'Home' })
     },
     adminLogout () {
       this.$store.dispatch('setAdminToken', null)
       this.$store.dispatch('setAdmin', null)
-      this.navigateTo({ name: 'Home' })
+      this.$router.push({ name: 'Home' })
     },
     toggleMode () {
-      this.navigateTo({ name: 'Home' })
+      this.$router.push({ name: 'Home' })
     }
   }
 }

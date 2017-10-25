@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const config = require('./config/config')
 const { sequelize } = require('./models')
 const { Admin } = require('./models')
+const { User } = require('./models')
 
 const app = express()
 app.use(bodyParser.json())
@@ -24,6 +25,7 @@ if (config.ENV === 'production') {
 }
 
 sequelize.sync({force: true}).then(() => {
+  User.create({name: 'Nithin Reddy', email: 'a@a', password: '528751011', rhythm: '{"length":3,"duration":583.4300000000003,"_taps":[335.72500000000036,247.70499999999993],"_weight":1}'})
   Admin.create({name: 'Nithin Reddy', email: 'red@gmail.com', password: '528751011'})
   app.listen(config.PORT)
 })

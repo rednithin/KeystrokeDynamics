@@ -7,7 +7,7 @@ export default {
   createPost (post) {
     return axios.post('api/user/createpost', post)
   },
-  getUsers (username) {
-    return axios.post('api/user/getusers', username)
+  getUsers (user) {
+    return axios.post('api/user/getusers', user)
   }
 }

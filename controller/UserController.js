@@ -28,15 +28,21 @@ module.exports = {
   async getUsers (req, res) {
     try {
       let users = null
-      if (req.body.name === '') {
+      if (req.body.id != null) {
+        users = await User.findOne({
+          where: {
+            id: req.body.id
+          }
+        })
+      } else if (req.body.name === '') {
         users = await User.findAll({
-          where: {}
+          limit: 10
         })
       } else {
         users = await User.findAll({
           where: {
             name: {
-              $like: req.body.name + '%'
+              $like: '%' + req.body.name + '%'
             }
           }
         })

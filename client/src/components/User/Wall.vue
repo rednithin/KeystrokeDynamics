@@ -3,7 +3,7 @@
     <v-flex xs12>
       <panel title="Posts">
         <v-btn
-          @click="navigateTo({name: 'UserCreatePost'})" 
+          :to="{name: 'UserCreatePost'}" 
           slot="action"
           class="indigo accent-2"
           light
@@ -41,11 +41,6 @@ export default {
   data () {
     return {
       posts: null
-    }
-  },
-  methods: {
-    navigateTo (route) {
-      this.$router.push(route)
     }
   },
   async mounted () {

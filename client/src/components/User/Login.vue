@@ -41,9 +41,6 @@ export default {
     Panel
   },
   methods: {
-    navigateTo (route) {
-      this.$router.push(route)
-    },
     async login () {
       try {
         this.error = ''
@@ -54,7 +51,7 @@ export default {
         })
         this.$store.dispatch('setUserToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
-        this.navigateTo({name: 'UserProfile'})
+        this.$router.push({name: 'UserProfile'})
       } catch (e) {
         this.error = e.response.data.error
       }

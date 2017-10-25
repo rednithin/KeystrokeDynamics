@@ -8,6 +8,7 @@ import UserWall from '@/components/User/Wall'
 import UserCreatePost from '@/components/User/CreatePost'
 import UserFindUsers from '@/components/User/FindUsers'
 import UserProfile from '@/components/User/Profile'
+import UserViewProfile from '@/components/User/ViewProfile'
 import AdminProfile from '@/components/Admin/Profile'
 
 Vue.use(Router)
@@ -53,6 +54,11 @@ export default new Router({
       path: '/user/profile',
       name: 'UserProfile',
       component: UserProfile
+    },
+    {
+      path: '/user/viewprofile/:userId',
+      name: 'UserViewProfile',
+      component: UserViewProfile
     },
     {
       path: '/admin/profile',

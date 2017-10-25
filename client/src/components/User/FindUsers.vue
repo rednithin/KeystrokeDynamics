@@ -1,23 +1,34 @@
 <template>
   <v-layout column>
     <v-flex xs12>
-      <panel title="Users">
+      <panel title="Search">
         <v-text-field
-          slot="action"
-          solo
-          prepend-icon="search"
-          placeholder="Search"
+          label="Search"
           v-model="user.name"
           @input="onSearchInput"
         ></v-text-field>
+      </panel>
+    </v-flex>
+    <v-flex>
+      <panel title="Users">
         <v-container fluid grid-list-md>
           <v-layout row wrap>
             <v-flex d-flex xs12 md6 v-for="user in users" :key="user.id">
               <v-card color="indigo darken-1" dark>
                 <v-card-title primary class="title">{{user.name}}</v-card-title>
-                <!-- <v-card-text>
-                  {{post.description}}
-                </v-card-text> -->
+                <v-card-text>
+                  <v-btn 
+                    dark 
+                    class="indigo lighten-1" 
+                    :to="{
+                      name: 'UserViewProfile',
+                      params: {
+                        userId: user.id
+                      }
+                    }">
+                    View
+                  </v-btn>
+                </v-card-text>
               </v-card>
             </v-flex>
           </v-layout>

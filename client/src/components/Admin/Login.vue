@@ -39,9 +39,6 @@ export default {
     Panel
   },
   methods: {
-    navigateTo (route) {
-      this.$router.push(route)
-    },
     async login () {
       try {
         this.error = ''
@@ -51,7 +48,7 @@ export default {
         })
         this.$store.dispatch('setAdminToken', response.data.token)
         this.$store.dispatch('setAdmin', response.data.admin)
-        this.navigateTo({name: 'AdminProfile'})
+        this.$router.push({name: 'AdminProfile'})
       } catch (e) {
         this.error = e.response.data.error
       }
