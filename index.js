@@ -23,7 +23,7 @@ if (config.ENV === 'production') {
   })
 }
 
-sequelize.sync({force: true}).then(() => {
+sequelize.sync().then(() => {
   if (config.ENV === 'production') {
     Admin.create({ name: 'Nithin Reddy', email: 'red@gmail.com', password: '528751011' })
   }
