@@ -1,7 +1,19 @@
 <template>
   <v-layout row column>
-    <v-flex xs12 sm6>
-      This is the JUST THE Home Page.
+    <v-flex xs12 sm12>
+      <div>
+        <h3>
+          Welcome to Socio.
+        </h3>
+      </div>
+      <br>
+      <br>
+      <br>
+      <div>
+        <h5>
+          Click around to explore.
+        </h5>
+      </div>
     </v-flex>
   </v-layout>
 </template>

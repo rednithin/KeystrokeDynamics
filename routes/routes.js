@@ -32,4 +32,8 @@ module.exports = app => {
     '/api/user/getusers',
     UserController.getUsers
   )
+  app.post(
+    '/api/user/deleteuser',
+    UserController.deleteUser
+  )
 }

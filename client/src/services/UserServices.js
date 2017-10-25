@@ -9,5 +9,8 @@ export default {
   },
   getUsers (user) {
     return axios.post('api/user/getusers', user)
+  },
+  deleteUser (user) {
+    return axios.post('api/user/deleteuser', user)
   }
 }

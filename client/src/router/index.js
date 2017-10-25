@@ -10,6 +10,7 @@ import UserFindUsers from '@/components/User/FindUsers'
 import UserProfile from '@/components/User/Profile'
 import UserViewProfile from '@/components/User/ViewProfile'
 import AdminProfile from '@/components/Admin/Profile'
+import AdminDeleteUsers from '@/components/Admin/DeleteUsers'
 
 Vue.use(Router)
 
@@ -64,6 +65,11 @@ export default new Router({
       path: '/admin/profile',
       name: 'AdminProfile',
       component: AdminProfile
+    },
+    {
+      path: '/admin/deleteuser',
+      name: 'AdminDeleteUsers',
+      component: AdminDeleteUsers
     }
   ]
 })

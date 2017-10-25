@@ -6,8 +6,6 @@
           class="text-field"
           label="Email"
           v-model="email"
-          @input="tapThat"
-          @blur="finish"
         ></v-text-field>
         <v-text-field
           type="password"

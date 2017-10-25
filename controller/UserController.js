@@ -53,5 +53,20 @@ module.exports = {
         error: 'An error has occured while trying to fetch Users.'
       })
     }
+  },
+  async deleteUser (req, res) {
+    console.log(JSON.stringify(req.body.id))
+    try {
+      await User.destroy({
+        where: {
+          id: req.body.id
+        }
+      })
+      res.send('All okay.')
+    } catch (err) {
+      res.status(500).json({
+        error: 'An error has occured while trying to delete a User.'
+      })
+    }
   }
 }
