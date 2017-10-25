@@ -24,6 +24,6 @@ if (config.ENV === 'production') {
   })
 }
 
-sequelize.sync().then(() => {
+sequelize.sync({force: true}).then(() => {
   app.listen(config.PORT)
 })
