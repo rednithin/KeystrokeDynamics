@@ -2,8 +2,6 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const config = require('./config/config')
 const { sequelize } = require('./models')
-const { Admin } = require('./models')
-const { User } = require('./models')
 
 const app = express()
 app.use(bodyParser.json())
