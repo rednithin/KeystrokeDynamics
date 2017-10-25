@@ -1,6 +1,5 @@
 const {Post} = require('../models')
 const {User} = require('../models')
-const Op = require('sequelize').Op
 
 module.exports = {
   async getWall (req, res) {
@@ -57,6 +56,11 @@ module.exports = {
   async deleteUser (req, res) {
     console.log(JSON.stringify(req.body.id))
     try {
+      await Post.destroy({
+        where: {
+          UserId: req.body.id
+        }
+      })
       await User.destroy({
         where: {
           id: req.body.id
