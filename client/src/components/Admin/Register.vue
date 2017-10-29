@@ -1,5 +1,7 @@
 <template>
-  <v-layout column>
+  <warning v-if="!$store.state.isAdminLoggedIn">
+  </warning>
+  <v-layout column v-else>
     <v-flex xs12 offset-md3 md6>
       <panel title="Admin Register">
         <v-text-field
@@ -29,6 +31,7 @@
 
 <script>
 import Panel from '@/components/Panel'
+import Warning from '@/components/Warning'
 import AuthenticationService from '@/services/AuthenticationService'
 export default {
   data () {
@@ -42,7 +45,8 @@ export default {
     }
   },
   components: {
-    Panel
+    Panel,
+    Warning
   },
   methods: {
     async register () {
