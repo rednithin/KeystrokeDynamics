@@ -18,12 +18,12 @@
         </v-btn>
         <v-container fluid grid-list-md>
           <v-layout row wrap>
-            <v-flex d-flex xs12 md6 v-for="post in posts" :key="post.id">
+            <v-flex d-flex xs12 md6 v-for="(post, index) in posts" :key="post.id">
               <v-card>
                 <v-card-title primary-title>
                   <div>
                     <div class="headline" style="text-align: left;">{{post.title}}</div>
-                    <div class="grey--text" style="text-align: left;">Created by User {{post.UserId}}</div>
+                    <div class="grey--text" style="text-align: left;"> Created by {{post.author}}</div>
                     <div style="text-align: left;">{{post.description}}</div>  
                   </div>
                 </v-card-title>                                  
@@ -50,8 +50,19 @@ export default {
       posts: null
     }
   },
-  async mounted () {
+  methods: {
+    async getUserName (id) {
+      let user = (await UserServices.getUserName({id: id})).data
+      console.log(user)
+      return user.name
+    }
+  },
+  async beforeMount () {
     this.posts = (await UserServices.getWall()).data
+    this.posts.forEach(async (post, index) => {
+      let author = await this.getUserName(post.UserId)
+      this.$set(this.posts[index], 'author', author)
+    })
   }
 }
 </script>

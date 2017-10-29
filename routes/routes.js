@@ -38,7 +38,23 @@ module.exports = app => {
     UserController.getUsers
   )
   app.post(
+    '/api/user/getusername',
+    UserController.getUserName
+  )
+  app.post(
     '/api/user/deleteuser',
     UserController.deleteUser
+  )
+  app.post(
+    '/api/user/followuser',
+    UserController.followUser
+  )
+  app.post(
+    '/api/user/unfollowuser',
+    UserController.unfollowUser
+  )
+  app.post(
+    '/api/user/getfollowing',
+    UserController.getFollowing
   )
 }

@@ -30,8 +30,17 @@
                     }">
                     View
                   </v-btn>
+                  <v-btn 
+                    dark 
+                    class="indigo lighten-1" 
+                    @click="follow(user.id)">
+                    Follow
+                  </v-btn>
                 </v-card-text>
               </v-card>
+            </v-flex>
+            <v-flex xs12>
+              <p>{{output}}</p>
             </v-flex>
           </v-layout>
         </v-container>         
@@ -54,12 +63,21 @@ export default {
       users: null,
       user: {
         name: ''
-      }
+      },
+      output: ''
     }
   },
   methods: {
     async onSearchInput () {
       this.users = (await UserServices.getUsers(this.user)).data
+    },
+    async follow (id) {
+      this.output = ''
+      let body = {
+        UserId: this.$store.state.user.id,
+        FollowingId: id
+      }
+      this.output = (await UserServices.followUser(body)).data.output
     }
   },
   async mounted () {

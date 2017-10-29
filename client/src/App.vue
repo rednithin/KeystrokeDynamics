@@ -32,6 +32,14 @@
             <v-list-tile-title>Wall</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <v-list-tile :to="{name: 'UserFollowing'}" v-if="$store.state.isUserLoggedIn && !isAdmin">
+          <v-list-tile-action>
+            <v-icon>dashboard</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Following</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
         <v-list-tile :to="{name: 'UserFindUsers'}" v-if="$store.state.isUserLoggedIn && !isAdmin">
           <v-list-tile-action>
             <v-icon>dashboard</v-icon>
