@@ -41,7 +41,7 @@ export default {
         email: '',
         password: ''
       },
-      ouput: ''
+      output: ''
     }
   },
   components: {

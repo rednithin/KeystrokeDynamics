@@ -18,13 +18,13 @@
         </v-btn>
         <v-container fluid grid-list-md>
           <v-layout row wrap>
-            <v-flex d-flex xs12 md6 v-for="(post, index) in posts" :key="post.id">
+            <v-flex xs12 md6 v-for="(post, index) in posts" :key="post.id">
               <v-card>
                 <v-card-title primary-title>
                   <div>
                     <div class="headline" style="text-align: left;">{{post.title}}</div>
                     <div class="grey--text" style="text-align: left;"> Created by {{post.author}}</div>
-                    <div style="text-align: left;">{{post.description}}</div>  
+                    <div style="text-align: left;overflow-wrap: break-word;">{{post.description}}</div>  
                   </div>
                 </v-card-title>                                  
               </v-card>

@@ -28,5 +28,9 @@ export default {
   },
   reportUser (obj) {
     return axios.post('api/user/reportuser', obj)
+  },
+  countUserReports (obj) {
+    console.log('ZZZZZZ')
+    return axios.post('api/user/getreports', obj)
   }
 }

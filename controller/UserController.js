@@ -169,5 +169,20 @@ module.exports = {
         error: 'An error has occured while trying follow a user.'
       })
     }
+  },
+  async countUserReports (req, res) {
+    console.log('HAHA')
+    try {
+      let count = await Report.count({
+        where: {
+          ReportedId: req.body.id
+        }
+      })
+      res.json({count})
+    } catch (err) {
+      res.status(500).json({
+        error: 'An error has occured while trying to count reports.'
+      })
+    }
   }
 }

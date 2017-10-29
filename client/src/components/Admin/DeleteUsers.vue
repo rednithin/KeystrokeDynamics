@@ -19,6 +19,9 @@
               <v-card color="indigo darken-1" dark>
                 <v-card-title primary class="title">{{user.name}}</v-card-title>
                 <v-card-text>
+                  <div>
+                    <div class="grey--text" style="text-align: left;"> No of Reports: {{user.reports}}</div>
+                  </div>
                   <v-btn 
                     dark 
                     class="indigo lighten-1" 
@@ -55,6 +58,10 @@ export default {
   methods: {
     async onSearchInput () {
       this.users = (await UserServices.getUsers(this.user)).data
+      this.users.forEach(async (user, index) => {
+        let reports = (await UserServices.countUserReports({id: user.id})).data
+        this.$set(this.users[index], 'reports', reports)
+      })
     },
     async deleteUser (userId) {
       console.log(userId)
@@ -62,8 +69,12 @@ export default {
       this.users = (await UserServices.getUsers(this.user)).data
     }
   },
-  async mounted () {
+  async beforeMount () {
     this.users = (await UserServices.getUsers(this.user)).data
+    this.users.forEach(async (user, index) => {
+      let reports = (await UserServices.countUserReports({id: user.id})).data.count
+      this.$set(this.users[index], 'reports', reports)
+    })
   }
 }
 </script>
