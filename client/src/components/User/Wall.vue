@@ -18,7 +18,7 @@
         </v-btn>
         <v-container fluid grid-list-md>
           <v-layout row wrap>
-            <v-flex xs12 md6 v-for="(post, index) in posts" :key="post.id">
+            <v-flex d-flex xs12 md6 v-for="(post, index) in posts" :key="post.id">
               <v-card>
                 <v-card-title primary-title>
                   <div>
