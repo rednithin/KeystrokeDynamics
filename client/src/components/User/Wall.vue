@@ -24,7 +24,11 @@
                   <div>
                     <div class="headline" style="text-align: left;">{{post.title}}</div>
                     <div class="grey--text" style="text-align: left;"> Created by {{post.author}}</div>
-                    <div style="text-align: left;overflow-wrap: break-word;">{{post.description}}</div>  
+                    <div style="text-align: left;">
+                      <p style="word-break: break-all;">
+                        {{post.description}}
+                      </p>
+                    </div>  
                   </div>
                 </v-card-title>                                  
               </v-card>
