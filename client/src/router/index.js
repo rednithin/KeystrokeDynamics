@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import UserLogin from '@/components/User/Login'
 import AdminLogin from '@/components/Admin/Login'
+import AdminRegister from '@/components/Admin/Register'
 import UserRegister from '@/components/User/Register'
 import UserWall from '@/components/User/Wall'
 import UserCreatePost from '@/components/User/CreatePost'
@@ -30,6 +31,11 @@ export default new Router({
       path: '/admin/login',
       name: 'AdminLogin',
       component: AdminLogin
+    },
+    {
+      path: '/admin/register',
+      name: 'AdminRegister',
+      component: AdminRegister
     },
     {
       path: '/user/register',

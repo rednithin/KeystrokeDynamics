@@ -7,7 +7,10 @@ export default {
   adminLogin (credentials) {
     return axios.post('api/admin/login', credentials)
   },
-  userRegister (credentials) {
-    return axios.post('api/user/register', credentials)
+  adminRegister (admin) {
+    return axios.post('api/admin/register', admin)
+  },
+  userRegister (user) {
+    return axios.post('api/user/register', user)
   }
 }

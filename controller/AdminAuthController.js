@@ -10,6 +10,19 @@ function jwtSignUser (admin) {
 }
 
 module.exports = {
+  async register (req, res) {
+    try {
+      await Admin.create(req.body)
+      res.json({
+        output: 'All Okay.'
+      })
+    } catch (err) {
+      console.log(err)
+      res.status(400).json({
+        error: 'This email account is already in use.'
+      })
+    }
+  },
   async login (req, res) {
     console.log(JSON.stringify(req.body, undefined, 2))
     try {
@@ -20,14 +33,14 @@ module.exports = {
         }
       })
       if (!admin) {
-        res.status(403).send({
+        res.status(403).json({
           error: 'Login information was incorrect.'
         })
       }
 
       const isPasswordValid = await admin.comparePassword(password)
       if (!isPasswordValid) {
-        res.status(403).send({
+        res.status(403).json({
           error: 'Login information was incorrect.'
         })
       }
@@ -39,7 +52,7 @@ module.exports = {
       })
     } catch (err) {
       console.log(err)
-      res.status(500).send({
+      res.status(500).json({
         error: 'Error has occured trying to login.'
       })
     }

@@ -17,8 +17,13 @@ module.exports = app => {
   )
   app.post(
     '/api/admin/login',
-    AdminAuthPolicy.authenticate,
+    AdminAuthPolicy.login,
     AdminAuthController.login
+  )
+  app.post(
+    '/api/admin/register',
+    AdminAuthPolicy.register,
+    AdminAuthController.register
   )
   app.get(
     '/api/user/getwall',
