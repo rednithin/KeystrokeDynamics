@@ -25,5 +25,8 @@ export default {
   getFollowing (obj) {
     console.log('LOLOL')
     return axios.post('api/user/getfollowing', obj)
+  },
+  reportUser (obj) {
+    return axios.post('api/user/reportuser', obj)
   }
 }

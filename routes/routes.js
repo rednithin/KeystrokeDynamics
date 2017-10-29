@@ -57,4 +57,8 @@ module.exports = app => {
     '/api/user/getfollowing',
     UserController.getFollowing
   )
+  app.post(
+    '/api/user/reportuser',
+    UserController.reportUser
+  )
 }

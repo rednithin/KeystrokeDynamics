@@ -36,6 +36,12 @@
                     @click="follow(user.id)">
                     Follow
                   </v-btn>
+                  <v-btn 
+                    dark 
+                    class="indigo lighten-1" 
+                    @click="report(user.id)">
+                    Report
+                  </v-btn>
                 </v-card-text>
               </v-card>
             </v-flex>
@@ -78,6 +84,14 @@ export default {
         FollowingId: id
       }
       this.output = (await UserServices.followUser(body)).data.output
+    },
+    async report (id) {
+      this.output = ''
+      let body = {
+        UserId: this.$store.state.user.id,
+        ReportedId: id
+      }
+      this.output = (await UserServices.reportUser(body)).data.output
     }
   },
   async mounted () {

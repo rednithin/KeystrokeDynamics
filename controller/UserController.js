@@ -1,4 +1,4 @@
-const { Post, User, Following } = require('../models')
+const { Post, User, Following, Report } = require('../models')
 
 module.exports = {
   async getUserName (req, res) {
@@ -146,6 +146,27 @@ module.exports = {
     } catch (err) {
       res.status(500).json({
         error: 'An error has occured while trying unfollow a user.'
+      })
+    }
+  },
+  async reportUser (req, res) {
+    try {
+      let tuple = await Report.findOne({
+        where: {
+          UserId: req.body.UserId,
+          ReportedId: req.body.ReportedId
+        }
+      })
+      console.log('TUPLE: ' + JSON.stringify(tuple, undefined, 2))
+      if (tuple) {
+        res.status(200).json({ output: 'Already Reported' })
+      } else {
+        await Report.create(req.body)
+        res.status(200).json({ output: 'Added to Reported List.' })
+      }
+    } catch (err) {
+      res.status(500).json({
+        error: 'An error has occured while trying follow a user.'
       })
     }
   }

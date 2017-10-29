@@ -27,6 +27,12 @@
                     @click="unfollow(following)">
                     UnFollow
                   </v-btn>
+                  <v-btn 
+                    dark 
+                    class="indigo lighten-1" 
+                    @click="report(following.FollowingId)">
+                    Report
+                  </v-btn>
                 </v-card-text>
               </v-card>
             </v-flex>
@@ -70,6 +76,14 @@ export default {
       let user = (await UserServices.getUserName({id: id})).data
       console.log(user)
       return user.name
+    },
+    async report (id) {
+      this.output = ''
+      let body = {
+        UserId: this.$store.state.user.id,
+        ReportedId: id
+      }
+      this.output = (await UserServices.reportUser(body)).data.output
     }
   },
   async beforeMount () {
