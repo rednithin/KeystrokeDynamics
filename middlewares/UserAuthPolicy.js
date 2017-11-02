@@ -13,7 +13,7 @@ module.exports = {
       status: Joi.string(),
       objective: Joi.string()
     }
-    const {error, value} = Joi.validate(req.body, schema)
+    const {error} = Joi.validate(req.body, schema)
     if (error) {
       switch (error.details[0].context.key) {
         case 'email':
@@ -52,7 +52,7 @@ module.exports = {
       password: Joi.string().regex(new RegExp('^.{8,32}$')),
       rhythm: Joi.string()
     }
-    const {error, value} = Joi.validate(req.body, schema)
+    const {error} = Joi.validate(req.body, schema)
 
     if (error) {
       switch (error.details[0].context.key) {
