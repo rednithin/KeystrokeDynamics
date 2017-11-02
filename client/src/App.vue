@@ -12,6 +12,7 @@
           color="indigo"
           label="Admin Mode"
           v-model="isAdmin"
+          v-if="!$store.state.isAdminLoggedIn && !$store.state.isUserLoggedIn"
           @change="toggleMode"
         ></v-switch>
       </v-flex>
