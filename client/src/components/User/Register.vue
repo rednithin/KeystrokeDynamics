@@ -5,12 +5,40 @@
         <v-text-field
           class="text-field"
           label="Name"
-          v-model="name"
+          v-model="user.name"
+        ></v-text-field>
+        <v-text-field
+          class="text-field"
+          label="Age"
+          v-model="user.age"
+        ></v-text-field>
+        <v-select
+          v-bind:items="genders"
+          v-model="user.gender"
+          label="Gender"
+          single-line
+          bottom
+        ></v-select>
+        <v-text-field
+          class="text-field"
+          label="Phone"
+          v-model="user.phone"
+        ></v-text-field>
+        <v-text-field
+          class="text-field"
+          label="Status"
+          v-model="user.status"
+        ></v-text-field>
+        <v-text-field
+          class="text-field"
+          label="Objective"
+          v-model="user.objective"
+          multi-line
         ></v-text-field>
         <v-text-field
           class="text-field"
           label="Email"
-          v-model="email"
+          v-model="user.email"
           @input="tapThat"
           @blur="finish"
         ></v-text-field>
@@ -18,7 +46,7 @@
           type="password"
           class="text-field"
           label="Password"
-          v-model="password"
+          v-model="user.password"
         ></v-text-field>
         <v-btn dark class="indigo lighten-1" @click="register">Register</v-btn>
         <br>
@@ -36,10 +64,19 @@ import tappy from 'tappy'
 export default {
   data () {
     return {
-      name: '',
-      email: '',
+      user: {
+        name: '',
+        email: '',
+        rhythm: '',
+        password: '',
+        phone: '',
+        gender: '',
+        age: '',
+        status: '',
+        objective: ''
+      },
+      genders: ['Male', 'Female'],
       rhythm: null,
-      password: '',
       error: ''
     }
   },
@@ -50,12 +87,9 @@ export default {
     async register () {
       try {
         this.error = ''
-        const response = await AuthenticationService.userRegister({
-          name: this.name,
-          email: this.email,
-          password: this.password,
-          rhythm: JSON.stringify(this.rhythm)
-        })
+        this.user.rhythm = JSON.stringify(this.rhythm)
+        const response = await AuthenticationService.userRegister(this.user)
+        console.log(response)
         this.$store.dispatch('setUserToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
         this.$router.push({name: 'UserProfile'})

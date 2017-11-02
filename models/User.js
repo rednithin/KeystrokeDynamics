@@ -27,9 +27,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       password: DataTypes.STRING(5000),
       rhythm: DataTypes.STRING(5000),
-      phone: DataTypes.STRING(200),
-      gender: DataTypes.CHAR(1),
-      age: DataTypes.INTEGER,
+      phone: DataTypes.STRING(10),
+      gender: DataTypes.CHAR(10),
+      age: DataTypes.STRING(10),
       status: DataTypes.STRING(2000),
       objective: DataTypes.STRING(2000)
     },
