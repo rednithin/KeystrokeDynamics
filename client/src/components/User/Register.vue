@@ -70,7 +70,7 @@ export default {
         rhythm: '',
         password: '',
         phone: '',
-        gender: '',
+        gender: 'Male',
         age: '',
         status: '',
         objective: ''
