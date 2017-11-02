@@ -26,7 +26,12 @@ module.exports = (sequelize, DataTypes) => {
         unique: true
       },
       password: DataTypes.STRING(5000),
-      rhythm: DataTypes.STRING(5000)
+      rhythm: DataTypes.STRING(5000),
+      phone: DataTypes.STRING(200),
+      gender: DataTypes.CHAR(1),
+      age: DataTypes.INTEGER,
+      status: DataTypes.STRING(2000),
+      objective: DataTypes.STRING(2000)
     },
     {
       hooks: {
