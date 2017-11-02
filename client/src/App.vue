@@ -19,7 +19,7 @@
       <v-list dense>
         <v-list-tile :to="{name: 'UserProfile'}" v-if="$store.state.isUserLoggedIn && !isAdmin">
           <v-list-tile-action>
-            <v-icon>dashboard</v-icon>
+            <v-icon>person</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Profile</v-list-tile-title>
@@ -27,7 +27,7 @@
         </v-list-tile>
         <v-list-tile :to="{name: 'UserWall'}" v-if="$store.state.isUserLoggedIn && !isAdmin">
           <v-list-tile-action>
-            <v-icon>dashboard</v-icon>
+            <v-icon>rss_feed</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Wall</v-list-tile-title>
@@ -35,7 +35,7 @@
         </v-list-tile>
         <v-list-tile :to="{name: 'UserFollowing'}" v-if="$store.state.isUserLoggedIn && !isAdmin">
           <v-list-tile-action>
-            <v-icon>dashboard</v-icon>
+            <v-icon>group</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Following</v-list-tile-title>
@@ -43,7 +43,7 @@
         </v-list-tile>
         <v-list-tile :to="{name: 'UserFindUsers'}" v-if="$store.state.isUserLoggedIn && !isAdmin">
           <v-list-tile-action>
-            <v-icon>dashboard</v-icon>
+            <v-icon>search</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Find Users</v-list-tile-title>
@@ -51,7 +51,7 @@
         </v-list-tile>
         <v-list-tile :to="{name: 'AdminProfile'}" v-if="$store.state.isAdminLoggedIn && isAdmin">
           <v-list-tile-action>
-            <v-icon>dashboard</v-icon>
+            <v-icon>supervisor_account</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Profile</v-list-tile-title>
@@ -59,7 +59,7 @@
         </v-list-tile>
         <v-list-tile :to="{name: 'AdminDeleteUsers'}" v-if="$store.state.isAdminLoggedIn && isAdmin">
           <v-list-tile-action>
-            <v-icon>dashboard</v-icon>
+            <v-icon>delete_forever</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Delete Users</v-list-tile-title>
@@ -67,7 +67,7 @@
         </v-list-tile>
         <v-list-tile :to="{name: 'AdminRegister'}" v-if="$store.state.isAdminLoggedIn && isAdmin">
           <v-list-tile-action>
-            <v-icon>dashboard</v-icon>
+            <v-icon>person_add</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Add Admins</v-list-tile-title>
