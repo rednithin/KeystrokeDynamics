@@ -16,10 +16,12 @@
 </template>
 
 <script>
+import Panel from '@/components/Panel'
 import Warning from '@/components/Warning'
 export default {
   components: {
-    Warning
+    Warning,
+    Panel
   }
 }
 </script>
