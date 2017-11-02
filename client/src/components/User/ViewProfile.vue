@@ -9,8 +9,6 @@
           label="Name"
           readonly
           v-model="user.name"
-          @input="tapThat"
-          @blur="finish"
         ></v-text-field>
         <v-text-field
           class="text-field"

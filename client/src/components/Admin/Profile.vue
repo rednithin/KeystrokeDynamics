@@ -1,9 +1,16 @@
 <template>
   <warning v-if="!$store.state.isAdminLoggedIn">
   </warning>
-  <v-layout justify-center align-center v-else>
-    <v-flex>
-      Welcome <span>{{ $store.state.admin.name }}</span> Admin!!!
+  <v-layout column v-else>
+    <v-flex xs12 offset-md3 md6>
+      <panel title="Admin's Profile">
+        <v-text-field
+          class="text-field"
+          label="Name"
+          readonly
+          v-model="$store.state.admin.name"
+        ></v-text-field>
+      </panel>
     </v-flex>
   </v-layout>
 </template>
