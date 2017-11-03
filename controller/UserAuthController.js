@@ -1,8 +1,8 @@
-const { User } = require('../models')
 const jwt = require('jsonwebtoken')
 const config = require('../config/config')
 const tappy = require('tappy')
-const {sequelize} = require('../models')
+const { sequelize, Sequelize } = require('../models')
+const bcrypt = require('bcrypt-nodejs')
 
 function jwtSignUser (user) {
   const ONE_WEEK = 60 * 60 * 24 * 7
@@ -14,11 +14,34 @@ function jwtSignUser (user) {
 module.exports = {
   async register (req, res) {
     try {
-      const user = await User.create(req.body)
-      const userJSON = user.toJSON()
+      let users = await sequelize.query(
+        "SELECT * from Users where email='" + req.body.email + "';",
+        { type: Sequelize.QueryTypes.SELECT }
+      )
+      if (users.length !== 0) {
+        throw new Error()
+      }
+      await sequelize.query(
+        'INSERT INTO `Users` (`id`,`name`,`email`,`password`,`rhythm`,`phone`,`gender`,`age`,`status`,`objective`,`createdAt`,`updatedAt`) ' +
+          "VALUES (DEFAULT,'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',DEFAULT,DEFAULT);"
+            .replace('{0}', req.body.name)
+            .replace('{1}', req.body.email)
+            .replace('{2}', bcrypt.hashSync(req.body.password))
+            .replace('{3}', req.body.rhythm)
+            .replace('{4}', req.body.phone)
+            .replace('{5}', req.body.gender)
+            .replace('{6}', req.body.age)
+            .replace('{7}', req.body.status)
+            .replace('{8}', req.body.objective)
+      )
+      users = await sequelize.query(
+        "SELECT * from Users where email='" + req.body.email + "';",
+        { type: Sequelize.QueryTypes.SELECT }
+      )
+      let user = users[0]
       res.send({
-        user: userJSON,
-        token: jwtSignUser(userJSON)
+        user: user,
+        token: jwtSignUser(user)
       })
     } catch (err) {
       console.log(err)
@@ -28,29 +51,27 @@ module.exports = {
     }
   },
   async login (req, res) {
-    console.log(JSON.stringify(req.body, undefined, 2))
     try {
       const { email, password, rhythm } = req.body
-      const user = await User.findOne({
-        where: {
-          email
-        }
-      })
-      if (!user) {
+      const users = await sequelize.query(
+        "SELECT * from Users where email='" + email + "';",
+        { type: Sequelize.QueryTypes.SELECT }
+      )
+      if (users.length === 0) {
         res.status(403).send({
           error: 'Login information was incorrect.'
         })
       }
+      let user = users[0]
 
-      const isPasswordValid = await user.comparePassword(password)
+      const isPasswordValid = await bcrypt.compareSync(password, user.password)
+      console.log('IS PASSWORD VALID' + isPasswordValid)
       if (!isPasswordValid) {
         res.status(403).send({
           error: 'Login information was incorrect.'
         })
       }
 
-      console.log('Rhythm' + rhythm)
-      console.log('User Rhythm' + user.rhythm)
       let inputRhythm = new tappy.Rhythm(JSON.parse(rhythm))
       let storedRhytm = new tappy.Rhythm(JSON.parse(user.rhythm))
 
@@ -67,13 +88,11 @@ module.exports = {
         })
       }
 
-      const userJSON = user.toJSON()
       res.status(200).json({
-        user: userJSON,
-        token: jwtSignUser(userJSON)
+        user: user,
+        token: jwtSignUser(user)
       })
     } catch (err) {
-      console.log(err)
       res.status(500).send({
         error: 'Error has occured trying to login.'
       })

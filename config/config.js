@@ -8,6 +8,9 @@ module.exports = {
     PASSWORD: process.env.SQLPASSWORD || '528751011',
     OPTIONS: {
       dialect: process.env.SQLDIALECT || 'mysql',
+      dialectOptions: {
+        multipleStatements: true
+      },
       host: process.env.SQLHOST || 'localhost',
       port: process.env.SQLPORT || '3306'
     }

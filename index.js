@@ -24,6 +24,6 @@ if (config.ENV === 'production') {
 }
 
 sequelize.sync({force: true}).then(() => {
-  Admin.create({ name: 'Nithin Reddy', email: 'red@gmail.com', password: '528751011' })
   app.listen(config.PORT)
+  console.log('Running fine and dandy')
 })
