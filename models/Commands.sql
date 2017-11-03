@@ -1,3 +1,4 @@
+set global log_bin_trust_function_creators=1;
 CREATE TABLE IF NOT EXISTS `Admins` (
   `id` INTEGER NOT NULL auto_increment , 
   `name` VARCHAR(150), 
