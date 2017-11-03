@@ -18,26 +18,10 @@ if (config.ENV === 'production') {
   )
 }
 
-// fs
-//   .readdirSync(__dirname)
-//   .filter(file => {
-//     return file !== 'index.js' && file !== 'README.md' && file !== 'Commands.sql'
-//   })
-//   .forEach(file => {
-//     const model = sequelize.import(path.join(__dirname, file))
-//     db[model.name] = model
-//   })
-
-// Object.keys(db).forEach(modelName => {
-//   if ('associate' in db[modelName]) {
-//     db[modelName].associate(db)
-//   }
-// })
-
 db.sequelize = sequelize
 db.Sequelize = Sequelize
 let text = fs.readFileSync(path.join(__dirname, 'Commands.sql'), 'utf8')
-db.sequelize.query(text).then((lol) => {
+db.sequelize.query(text).then(lol => {
   console.log('Done')
 })
 

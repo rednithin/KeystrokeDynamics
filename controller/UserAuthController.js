@@ -23,14 +23,14 @@ module.exports = {
       }
       await sequelize.query(
         'INSERT INTO `Users` (`id`,`name`,`email`,`password`,`rhythm`,`phone`,`gender`,`age`,`status`,`objective`,`createdAt`,`updatedAt`) ' +
-          "VALUES (DEFAULT,'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',DEFAULT,DEFAULT);"
+          "VALUES (DEFAULT,'{0}','{1}','{2}','{3}','{4}','{5}',{6},'{7}','{8}',DEFAULT,DEFAULT);"
             .replace('{0}', req.body.name)
             .replace('{1}', req.body.email)
             .replace('{2}', bcrypt.hashSync(req.body.password))
             .replace('{3}', req.body.rhythm)
             .replace('{4}', req.body.phone)
             .replace('{5}', req.body.gender)
-            .replace('{6}', req.body.age)
+            .replace('{6}', parseInt(req.body.age))
             .replace('{7}', req.body.status)
             .replace('{8}', req.body.objective)
       )

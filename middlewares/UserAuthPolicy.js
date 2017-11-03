@@ -9,11 +9,11 @@ module.exports = {
       rhythm: Joi.string(),
       phone: Joi.string().regex(new RegExp('^[0-9]{10}$')),
       gender: Joi.string(),
-      age: Joi.string().regex(new RegExp('^[0-9]{1,3}$')),
+      age: Joi.string().regex(new RegExp('^[-]{0,1}[0-9]{1,3}$')),
       status: Joi.string(),
       objective: Joi.string()
     }
-    const {error} = Joi.validate(req.body, schema)
+    const { error } = Joi.validate(req.body, schema)
     if (error) {
       switch (error.details[0].context.key) {
         case 'email':
@@ -52,7 +52,7 @@ module.exports = {
       password: Joi.string().regex(new RegExp('^.{8,32}$')),
       rhythm: Joi.string()
     }
-    const {error} = Joi.validate(req.body, schema)
+    const { error } = Joi.validate(req.body, schema)
 
     if (error) {
       switch (error.details[0].context.key) {
