@@ -63,6 +63,6 @@ module.exports = app => {
   )
   app.post(
     '/api/user/getreports',
-    UserController.countUserReports
+    UserController.getReports
   )
 }

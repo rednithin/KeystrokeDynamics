@@ -67,15 +67,6 @@ export default {
       let response = (await UserServices.unfollowUser(following)).data
       this.output = response.output
       this.followings = (await UserServices.getFollowing({id: this.$store.state.user.id})).data
-      this.followings.forEach(async (following, index) => {
-        let name = await this.getUserName(following.FollowingId)
-        this.$set(this.followings[index], 'name', name)
-      })
-    },
-    async getUserName (id) {
-      let user = (await UserServices.getUserName({id: id})).data
-      console.log(user)
-      return user.name
     },
     async report (id) {
       this.output = ''
@@ -87,13 +78,7 @@ export default {
     }
   },
   async beforeMount () {
-    console.log('Enter mounted')
     this.followings = (await UserServices.getFollowing({id: this.$store.state.user.id})).data
-    console.log('Following' + JSON.stringify(this.users))
-    this.followings.forEach(async (following, index) => {
-      let name = await this.getUserName(following.FollowingId)
-      this.$set(this.followings[index], 'name', name)
-    })
   }
 }
 </script>

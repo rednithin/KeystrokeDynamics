@@ -168,17 +168,22 @@ module.exports = {
       })
     }
   },
-  async countUserReports (req, res) {
+  async getReports (req, res) {
     console.log('HAHA')
     try {
-      let count = await sequelize.query(
-        'SELECT count(*) from Reports where ReportedId={0};'.replace(
-          '{0}',
-          req.body.id
-        ),
-        { type: Sequelize.QueryTypes.SELECT }
-      )
-      res.json({ count })
+      let users = null
+      if (req.body.name === '') {
+        users = await sequelize.query('SELECT Users.id,name,count(ReportedID) as reports from Users left join Reports on Users.id = Reports.ReportedId group by Users.id limit 10;', {
+          type: Sequelize.QueryTypes.SELECT
+        })
+      } else {
+        users = await sequelize.query(
+          "SELECT Users.id,name,count(ReportedID) as reports from Users left join Reports on Users.id = Reports.ReportedId where Users.name like '%{0}%' group by Users.id limit 10;"
+            .replace('{0}', req.body.name),
+          { type: Sequelize.QueryTypes.SELECT }
+        )
+      }
+      res.json(users)
     } catch (err) {
       res.status(500).json({
         error: 'An error has occured while trying to count reports.'

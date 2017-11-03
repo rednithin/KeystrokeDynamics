@@ -4,9 +4,6 @@ export default {
   getWall () {
     return axios.get('api/user/getwall')
   },
-  getUserName (obj) {
-    return axios.post('api/user/getusername', obj)
-  },
   createPost (post) {
     return axios.post('api/user/createpost', post)
   },
@@ -29,8 +26,7 @@ export default {
   reportUser (obj) {
     return axios.post('api/user/reportuser', obj)
   },
-  countUserReports (obj) {
-    console.log('ZZZZZZ')
+  getReports (obj) {
     return axios.post('api/user/getreports', obj)
   }
 }

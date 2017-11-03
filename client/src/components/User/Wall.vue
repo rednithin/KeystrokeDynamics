@@ -54,19 +54,8 @@ export default {
       posts: null
     }
   },
-  methods: {
-    async getUserName (id) {
-      let user = (await UserServices.getUserName({id: id})).data
-      console.log(user)
-      return user.name
-    }
-  },
   async beforeMount () {
     this.posts = (await UserServices.getWall()).data
-    this.posts.forEach(async (post, index) => {
-      let author = await this.getUserName(post.UserId)
-      this.$set(this.posts[index], 'author', author)
-    })
   }
 }
 </script>

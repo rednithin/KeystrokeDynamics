@@ -57,24 +57,15 @@ export default {
   },
   methods: {
     async onSearchInput () {
-      this.users = (await UserServices.getUsers(this.user)).data
-      this.users.forEach(async (user, index) => {
-        let reports = (await UserServices.countUserReports({id: user.id})).data
-        this.$set(this.users[index], 'reports', reports)
-      })
+      this.users = (await UserServices.getReports(this.user)).data
     },
     async deleteUser (userId) {
-      console.log(userId)
       await UserServices.deleteUser({id: userId})
-      this.users = (await UserServices.getUsers(this.user)).data
+      this.users = (await UserServices.getReports(this.user)).data
     }
   },
   async beforeMount () {
-    this.users = (await UserServices.getUsers(this.user)).data
-    this.users.forEach(async (user, index) => {
-      let reports = (await UserServices.countUserReports({id: user.id})).data.count
-      this.$set(this.users[index], 'reports', reports)
-    })
+    this.users = (await UserServices.getReports(this.user)).data
   }
 }
 </script>
