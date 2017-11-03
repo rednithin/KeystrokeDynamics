@@ -1,26 +1,28 @@
-const { Post, User, Following, Report } = require('../models')
+const { sequelize, Sequelize } = require('../models')
 
 module.exports = {
-  async getUserName (req, res) {
-    try {
-      const user = await User.findOne({
-        where: {
-          id: req.body.id
-        },
-        attributes: ['name']
-      })
-      res.json(user)
-    } catch (err) {
-      res.status(500).json({
-        error: 'An error has occured while trying to fetch name of user.'
-      })
-    }
-  },
+  // async getUserName (req, res) {
+  //   try {
+  //     const user = await User.findOne({
+  //       where: {
+  //         id: req.body.id
+  //       },
+  //       attributes: ['name']
+  //     })
+  //     res.json(user)
+  //   } catch (err) {
+  //     res.status(500).json({
+  //       error: 'An error has occured while trying to fetch name of user.'
+  //     })
+  //   }
+  // },
   async getWall (req, res) {
     try {
-      const posts = await Post.findAll({
-        where: {}
-      })
+      let posts = await sequelize.query(
+        'SELECT post.*,user.name as author from Posts post, Users user where post.UserId=user.id;',
+        { type: Sequelize.QueryTypes.SELECT }
+      )
+      posts = posts.reverse()
       res.json(posts)
     } catch (err) {
       res.status(500).json({
@@ -30,8 +32,17 @@ module.exports = {
   },
   async createPost (req, res) {
     try {
-      const post = await Post.create(req.body)
-      res.json(post)
+      await sequelize
+        .query(
+          'INSERT INTO Posts ' +
+          "VALUES (DEFAULT,'{0}','{1}',DEFAULT,DEFAULT,{2});"
+            .replace('{0}', req.body.title)
+            .replace('{1}', req.body.description)
+            .replace('{2}', req.body.UserId)
+        )
+      res.json({
+        output: 'Post created.'
+      })
     } catch (err) {
       res.status(500).json({
         error: 'An error has occured while trying create a post'
@@ -42,23 +53,21 @@ module.exports = {
     try {
       let users = null
       if (req.body.id != null) {
-        users = await User.findOne({
-          where: {
-            id: req.body.id
-          }
-        })
+        users = await sequelize.query(
+          'SELECT * from Users where id=' + req.body.id + ';',
+          { type: Sequelize.QueryTypes.SELECT }
+        )
+        users = users[0]
       } else if (req.body.name === '') {
-        users = await User.findAll({
-          limit: 10
-        })
+        users = await sequelize.query(
+          'SELECT * from Users limit 10;',
+          { type: Sequelize.QueryTypes.SELECT }
+        )
       } else {
-        users = await User.findAll({
-          where: {
-            name: {
-              $like: '%' + req.body.name + '%'
-            }
-          }
-        })
+        users = await sequelize.query(
+          "SELECT * from Users user where user.name like '%" + req.body.name + "%' limit 10;",
+          { type: Sequelize.QueryTypes.SELECT }
+        )
       }
       res.json(users)
     } catch (err) {
@@ -68,28 +77,10 @@ module.exports = {
     }
   },
   async deleteUser (req, res) {
-    console.log(JSON.stringify(req.body.id))
     try {
-      await Post.destroy({
-        where: {
-          UserId: req.body.id
-        }
-      })
-      await Following.destroy({
-        where: {
-          UserId: req.body.id
-        }
-      })
-      await Following.destroy({
-        where: {
-          FollowingId: req.body.id
-        }
-      })
-      await User.destroy({
-        where: {
-          id: req.body.id
-        }
-      })
+      await sequelize.query(
+        'Delete * from Users where id=' + req.body.id + ';'
+      )
       res.send('All okay.')
     } catch (err) {
       res.status(500).json({
@@ -99,17 +90,22 @@ module.exports = {
   },
   async followUser (req, res) {
     try {
-      let tuple = await Following.findOne({
-        where: {
-          UserId: req.body.UserId,
-          FollowingId: req.body.FollowingId
-        }
-      })
-      console.log('TUPLE: ' + JSON.stringify(tuple, undefined, 2))
-      if (tuple) {
+      let tuples = await sequelize.query(
+        'SELECT * from Followings where UserId={0} and FollowingId={1};'
+          .replace('{0}', req.body.UserId)
+          .replace('{1}', req.body.FollowingId),
+        { type: Sequelize.QueryTypes.SELECT }
+      )
+      if (tuples.length !== 0) {
         res.status(200).json({ output: 'Already followed.' })
       } else {
-        await Following.create(req.body)
+        await sequelize
+          .query(
+            'INSERT INTO Followings ' +
+            'VALUES (DEFAULT,DEFAULT,DEFAULT,{0},{1});'
+              .replace('{0}', req.body.UserId)
+              .replace('{1}', req.body.FollowingId)
+          )
         res.status(200).json({ output: 'Added to Following List.' })
       }
     } catch (err) {
@@ -121,11 +117,11 @@ module.exports = {
   async getFollowing (req, res) {
     console.log('LOL')
     try {
-      let list = await Following.findAll({
-        where: {
-          UserId: req.body.id
-        }
-      })
+      let list = await sequelize.query(
+        'SELECT Followings.*,Users.name as name from Followings,Users where UserId={0};'
+          .replace('{0}', req.body.id),
+        { type: Sequelize.QueryTypes.SELECT }
+      )
       console.log(JSON.stringify('LIST' + list))
       res.json(list)
     } catch (err) {
@@ -136,12 +132,11 @@ module.exports = {
   },
   async unfollowUser (req, res) {
     try {
-      await Following.destroy({
-        where: {
-          UserId: req.body.UserId,
-          FollowingId: req.body.FollowingId
-        }
-      })
+      await sequelize.query(
+        'DELETE * from Followings where UserId={0} and FollowingId={1};'
+          .replace('{0}', req.body.UserId)
+          .replace('{1}', req.body.FollowingId)
+      )
       res.json({ output: 'Removed from Following List.' })
     } catch (err) {
       res.status(500).json({
@@ -151,17 +146,22 @@ module.exports = {
   },
   async reportUser (req, res) {
     try {
-      let tuple = await Report.findOne({
-        where: {
-          UserId: req.body.UserId,
-          ReportedId: req.body.ReportedId
-        }
-      })
-      console.log('TUPLE: ' + JSON.stringify(tuple, undefined, 2))
-      if (tuple) {
+      let tuples = await sequelize.query(
+        'SELECT * from Reports where UserId={0} and ReportedId={1};'
+          .replace('{0}', req.body.UserId)
+          .replace('{1}', req.body.ReportedId),
+        { type: Sequelize.QueryTypes.SELECT }
+      )
+      if (tuples.length !== 0) {
         res.status(200).json({ output: 'Already Reported' })
       } else {
-        await Report.create(req.body)
+        await sequelize
+          .query(
+            'INSERT INTO Reports ' +
+          'VALUES (DEFAULT,DEFAULT,DEFAULT,{0},{1});'
+            .replace('{0}', req.body.UserId)
+            .replace('{1}', req.body.ReportedId)
+          )
         res.status(200).json({ output: 'Added to Reported List.' })
       }
     } catch (err) {
@@ -173,11 +173,11 @@ module.exports = {
   async countUserReports (req, res) {
     console.log('HAHA')
     try {
-      let count = await Report.count({
-        where: {
-          ReportedId: req.body.id
-        }
-      })
+      let count = await sequelize.query(
+        'SELECT count(*) from Reports where ReportedId={0};'
+          .replace('{0}', req.body.id),
+        { type: Sequelize.QueryTypes.SELECT }
+      )
       res.json({count})
     } catch (err) {
       res.status(500).json({
