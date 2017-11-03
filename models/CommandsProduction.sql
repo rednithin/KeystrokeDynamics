@@ -53,7 +53,6 @@ CREATE TABLE IF NOT EXISTS `Reports` (
   FOREIGN KEY (`UserId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, 
   FOREIGN KEY (`ReportedId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
 
-CREATE TRIGGER MyTrigger BEFORE INSERT ON Users FOR EACH ROW BEGIN IF new.age < 0 THEN SET new.age = 0; END IF; END;
 
 INSERT INTO `Admins` (`id`,`name`,`email`,`password`,`createdAt`,`updatedAt`) VALUES (
   DEFAULT,

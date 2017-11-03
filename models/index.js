@@ -13,8 +13,13 @@ let sequelize = new Sequelize(
 
 db.sequelize = sequelize
 db.Sequelize = Sequelize
-let text = fs.readFileSync(path.join(__dirname, 'Commands.sql'), 'utf8')
-db.sequelize.query(text).then(lol => {
+let query = ''
+if (config.ENV === 'production') {
+  query = fs.readFileSync(path.join(__dirname, 'CommandsProduction.sql'), 'utf8')
+} else {
+  query = fs.readFileSync(path.join(__dirname, 'Commands.sql'), 'utf8')
+}
+db.sequelize.query(query).then(lol => {
   console.log('Done')
 })
 
