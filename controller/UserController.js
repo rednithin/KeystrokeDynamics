@@ -78,7 +78,7 @@ module.exports = {
   },
   async deleteUser (req, res) {
     try {
-      await sequelize.query('Delete * from Users where id=' + req.body.id + ';')
+      await sequelize.query('Delete from Users where id=' + req.body.id + ';')
       res.send('All okay.')
     } catch (err) {
       res.status(500).json({
@@ -115,7 +115,7 @@ module.exports = {
     console.log('LOL')
     try {
       let list = await sequelize.query(
-        'SELECT Followings.*,Users.name as name from Followings,Users where UserId={0};'.replace(
+        'SELECT Followings.*,Users.name as name from Followings,Users where UserId={0} and Followings.FollowingId=Users.id;'.replace(
           '{0}',
           req.body.id
         ),
@@ -132,7 +132,7 @@ module.exports = {
   async unfollowUser (req, res) {
     try {
       await sequelize.query(
-        'DELETE * from Followings where UserId={0} and FollowingId={1};'
+        'DELETE from Followings where UserId={0} and FollowingId={1};'
           .replace('{0}', req.body.UserId)
           .replace('{1}', req.body.FollowingId)
       )
