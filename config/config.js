@@ -3,6 +3,7 @@ module.exports = {
   ENV: process.env.NODE_ENV || 'development',
   URL: process.env.URL || 'http://localhost:8080',
   DB: {
+    URL: process.env.CLEARDB_DATABASE_URL,
     DATABASE: process.env.SQLDBNAME || 'KeystrokeDynamics',
     USER: process.env.SQLUSER || 'root',
     PASSWORD: process.env.SQLPASSWORD || '528751011',

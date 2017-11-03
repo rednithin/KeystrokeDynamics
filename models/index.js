@@ -4,12 +4,17 @@ const Sequelize = require('sequelize')
 const config = require('../config/config')
 
 const db = {}
-let sequelize = new Sequelize(
-  config.DB.DATABASE,
-  config.DB.USER,
-  config.DB.PASSWORD,
-  config.DB.OPTIONS
-)
+let sequelize = null
+if (config.ENV === 'production') {
+  sequelize = new Sequelize(config.DB.URL)
+} else {
+  sequelize = new Sequelize(
+    config.DB.DATABASE,
+    config.DB.USER,
+    config.DB.PASSWORD,
+    config.DB.OPTIONS
+  )
+}
 
 db.sequelize = sequelize
 db.Sequelize = Sequelize
