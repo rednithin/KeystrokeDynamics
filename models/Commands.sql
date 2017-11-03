@@ -1,9 +1,3 @@
-DROP TABLE IF EXISTS `Reports`;
-DROP TABLE IF EXISTS `Posts`;
-DROP TABLE IF EXISTS `Followings`;
-DROP TABLE IF EXISTS `Users`;
-DROP TABLE IF EXISTS `Admins`;
-
 CREATE TABLE IF NOT EXISTS `Admins` (
   `id` INTEGER NOT NULL auto_increment , 
   `name` VARCHAR(150), 
