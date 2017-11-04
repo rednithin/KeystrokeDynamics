@@ -22,10 +22,11 @@ module.exports = {
         { type: Sequelize.QueryTypes.SELECT }
       )
       let followings = await sequelize.query(
-        'SELECT Followings.* from Followings where UserId={0};'.replace(
+        'SELECT * from Followings where UserId={0};'.replace(
           '{0}',
           req.body.id
-        )
+        ),
+        { type: Sequelize.QueryTypes.SELECT }
       )
       posts = posts.filter(post => {
         let isPresent = false

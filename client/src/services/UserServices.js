@@ -31,5 +31,8 @@ export default {
   },
   getStats () {
     return axios.get('api/user/getstats')
+  },
+  getFollowingWall (obj) {
+    return axios.post('api/user/getfollowingwall', obj)
   }
 }

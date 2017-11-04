@@ -30,7 +30,15 @@
             <v-icon>rss_feed</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Wall</v-list-tile-title>
+            <v-list-tile-title>Public Wall</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile :to="{name: 'UserFollowingWall'}" v-if="$store.state.isUserLoggedIn && !isAdmin">
+          <v-list-tile-action>
+            <v-icon>rss_feed</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Following Wall</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile :to="{name: 'UserFollowing'}" v-if="$store.state.isUserLoggedIn && !isAdmin">
