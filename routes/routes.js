@@ -65,4 +65,12 @@ module.exports = app => {
     '/api/user/getreports',
     UserController.getReports
   )
+  app.get(
+    '/api/user/countusers',
+    UserController.countUsers
+  )
+  app.get(
+    '/api/user/countadmins',
+    UserController.countAdmins
+  )
 }

@@ -1,21 +1,6 @@
 const { sequelize, Sequelize } = require('../models')
 
 module.exports = {
-  // async getUserName (req, res) {
-  //   try {
-  //     const user = await User.findOne({
-  //       where: {
-  //         id: req.body.id
-  //       },
-  //       attributes: ['name']
-  //     })
-  //     res.json(user)
-  //   } catch (err) {
-  //     res.status(500).json({
-  //       error: 'An error has occured while trying to fetch name of user.'
-  //     })
-  //   }
-  // },
   async getWall (req, res) {
     try {
       let posts = await sequelize.query(
@@ -187,6 +172,26 @@ module.exports = {
     } catch (err) {
       res.status(500).json({
         error: 'An error has occured while trying to count reports.'
+      })
+    }
+  },
+  async countUsers (req, res) {
+    try {
+      let response = await sequelize.query('CALL CountUsers();')
+      res.send(response)
+    } catch (err) {
+      res.status(500).json({
+        error: 'An error has occured while trying to call CountUsers Stored Procedure'
+      })
+    }
+  },
+  async countAdmins (req, res) {
+    try {
+      let response = await sequelize.query('CALL CountAdmins();')
+      res.send(response)
+    } catch (err) {
+      res.status(500).json({
+        error: 'An error has occured while trying to call CountAdmins Stored Procedure'
       })
     }
   }
