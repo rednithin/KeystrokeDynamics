@@ -1,25 +1,39 @@
 <template>
   <v-layout row column>
-    <v-flex xs12 sm12>
-      <div>
-        <h3>
-          Welcome to Socio.
-        </h3>
-      </div>
-      <br>
-      <br>
-      <br>
-      <div>
-        <h5>
-          Click around to explore.
-        </h5>
-      </div>
+    <v-flex xs12 md6 offset-md3>
+      <panel title="Welcome to Socio">
+        <div>
+          <h5>You are on the homepage. Browse around.</h5>
+        </div>
+        <br>
+        <div>
+          <p><h5>Count Users: {{userCount}}</h5></p>
+          <p><h5>Count Admins: {{adminCount}}</h5></p>
+        </div>
+      </panel>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
+import Panel from '@/components/Panel'
+import UserServices from '@/services/UserServices'
 export default {
+  data () {
+    return {
+      userCount: '',
+      adminCount: ''
+    }
+  },
+  components: {
+    Panel
+  },
+  async mounted () {
+    let response = (await UserServices.getStats()).data
+    console.log('RESPONSE : ' + JSON.stringify(response))
+    this.userCount = response.userCount
+    this.adminCount = response.adminCount
+  }
 }
 </script>
 

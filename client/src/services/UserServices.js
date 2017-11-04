@@ -28,5 +28,8 @@ export default {
   },
   getReports (obj) {
     return axios.post('api/user/getreports', obj)
+  },
+  getStats () {
+    return axios.get('api/user/getstats')
   }
 }

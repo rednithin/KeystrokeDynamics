@@ -66,11 +66,7 @@ module.exports = app => {
     UserController.getReports
   )
   app.get(
-    '/api/user/countusers',
-    UserController.countUsers
-  )
-  app.get(
-    '/api/admin/countadmins',
-    UserController.countAdmins
+    '/api/user/getstats',
+    UserController.getStats
   )
 }

@@ -175,23 +175,16 @@ module.exports = {
       })
     }
   },
-  async countUsers (req, res) {
+  async getStats (req, res) {
     try {
-      let response = await sequelize.query('CALL CountUsers();')
-      res.send(response[0])
+      let response = {}
+      response.userCount = (await sequelize.query('CALL CountUsers();'))[0].count
+      response.adminCount = (await sequelize.query('CALL CountAdmins();'))[0].count
+      console.log(response)
+      res.send(response)
     } catch (err) {
       res.status(500).json({
         error: 'An error has occured while trying to call CountUsers Stored Procedure'
-      })
-    }
-  },
-  async countAdmins (req, res) {
-    try {
-      let response = await sequelize.query('CALL CountAdmins();')
-      res.send(response[0])
-    } catch (err) {
-      res.status(500).json({
-        error: 'An error has occured while trying to call CountAdmins Stored Procedure'
       })
     }
   }
