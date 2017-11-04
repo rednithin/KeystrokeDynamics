@@ -29,10 +29,12 @@ export default {
     Panel
   },
   async mounted () {
-    let response = (await UserServices.getStats()).data
-    console.log('RESPONSE : ' + JSON.stringify(response))
-    this.userCount = response.userCount
-    this.adminCount = response.adminCount
+    if (process.env.NODE_ENV !== 'production') {
+      let response = (await UserServices.getStats()).data
+      console.log('RESPONSE : ' + JSON.stringify(response))
+      this.userCount = response.userCount
+      this.adminCount = response.adminCount
+    }
   }
 }
 </script>
