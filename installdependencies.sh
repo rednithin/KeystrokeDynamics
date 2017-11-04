@@ -1,3 +1,4 @@
+#!/bin/bash
 echo $PWD
 npm install
 cd client
