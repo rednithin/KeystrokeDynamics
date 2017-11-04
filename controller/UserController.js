@@ -178,7 +178,7 @@ module.exports = {
   async countUsers (req, res) {
     try {
       let response = await sequelize.query('CALL CountUsers();')
-      res.send(response)
+      res.send(response[0])
     } catch (err) {
       res.status(500).json({
         error: 'An error has occured while trying to call CountUsers Stored Procedure'
@@ -188,7 +188,7 @@ module.exports = {
   async countAdmins (req, res) {
     try {
       let response = await sequelize.query('CALL CountAdmins();')
-      res.send(response)
+      res.send(response[0])
     } catch (err) {
       res.status(500).json({
         error: 'An error has occured while trying to call CountAdmins Stored Procedure'
