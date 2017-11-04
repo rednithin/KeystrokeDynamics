@@ -15,6 +15,35 @@ module.exports = {
       })
     }
   },
+  async getFollowingWall (req, res) {
+    try {
+      let posts = await sequelize.query(
+        'SELECT post.*,user.name as author from Posts post, Users user where post.UserId=user.id;',
+        { type: Sequelize.QueryTypes.SELECT }
+      )
+      let followings = await sequelize.query(
+        'SELECT Followings.* from Followings where UserId={0};'.replace(
+          '{0}',
+          req.body.id
+        )
+      )
+      posts = posts.filter(post => {
+        let isPresent = false
+        followings.forEach(following => {
+          if (following.FollowingId === post.UserId) {
+            isPresent = true
+          }
+        })
+        return isPresent
+      })
+      posts = posts.reverse()
+      res.json(posts)
+    } catch (err) {
+      res.status(500).json({
+        error: 'An error has occured while trying to fetch Posts.'
+      })
+    }
+  },
   async createPost (req, res) {
     try {
       await sequelize.query(
@@ -158,13 +187,18 @@ module.exports = {
     try {
       let users = null
       if (req.body.name === '') {
-        users = await sequelize.query('SELECT Users.id,name,count(ReportedID) as reports from Users left join Reports on Users.id = Reports.ReportedId group by Users.id limit 10;', {
-          type: Sequelize.QueryTypes.SELECT
-        })
+        users = await sequelize.query(
+          'SELECT Users.id,name,count(ReportedID) as reports from Users left join Reports on Users.id = Reports.ReportedId group by Users.id limit 10;',
+          {
+            type: Sequelize.QueryTypes.SELECT
+          }
+        )
       } else {
         users = await sequelize.query(
-          "SELECT Users.id,name,count(ReportedID) as reports from Users left join Reports on Users.id = Reports.ReportedId where Users.name like '%{0}%' group by Users.id limit 10;"
-            .replace('{0}', req.body.name),
+          "SELECT Users.id,name,count(ReportedID) as reports from Users left join Reports on Users.id = Reports.ReportedId where Users.name like '%{0}%' group by Users.id limit 10;".replace(
+            '{0}',
+            req.body.name
+          ),
           { type: Sequelize.QueryTypes.SELECT }
         )
       }
@@ -178,13 +212,18 @@ module.exports = {
   async getStats (req, res) {
     try {
       let response = {}
-      response.userCount = (await sequelize.query('CALL CountUsers();'))[0].count
-      response.adminCount = (await sequelize.query('CALL CountAdmins();'))[0].count
+      response.userCount = (await sequelize.query(
+        'CALL CountUsers();'
+      ))[0].count
+      response.adminCount = (await sequelize.query(
+        'CALL CountAdmins();'
+      ))[0].count
       console.log(response)
       res.send(response)
     } catch (err) {
       res.status(500).json({
-        error: 'An error has occured while trying to call CountUsers Stored Procedure'
+        error:
+          'An error has occured while trying to call CountUsers Stored Procedure'
       })
     }
   }

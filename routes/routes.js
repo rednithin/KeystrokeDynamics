@@ -30,6 +30,10 @@ module.exports = app => {
     UserController.getWall
   )
   app.post(
+    '/api/user/getfollowingwall',
+    UserController.getFollowingWall
+  )
+  app.post(
     '/api/user/createpost',
     UserController.createPost
   )
