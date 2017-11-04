@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS Followings, Reports, Posts, Admins, Users;
+
 CREATE TABLE IF NOT EXISTS `Admins` (
   `id` INTEGER NOT NULL auto_increment , 
   `name` VARCHAR(150), 
@@ -53,12 +55,9 @@ CREATE TABLE IF NOT EXISTS `Reports` (
   FOREIGN KEY (`UserId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, 
   FOREIGN KEY (`ReportedId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
 
-CREATE TRIGGER MyTrigger BEFORE INSERT ON Users FOR EACH ROW BEGIN IF new.age < 0 THEN SET new.age = 0; END IF; END;
+CREATE OR REPLACE TRIGGER MyTrigger BEFORE INSERT ON Users FOR EACH ROW BEGIN IF new.age < 0 THEN SET new.age = 0; END IF; END;
 
-INSERT INTO `Admins` (`id`,`name`,`email`,`password`,`createdAt`,`updatedAt`) VALUES (
-  DEFAULT,
-  'Nithin Reddy',
-  'red@gmail.com',
-  '$2a$08$GTDWiZhkacEyj0IJRw31h.c4VTj0.H4eli15XSVsrT8WDjeNAgOJy',
-  '2017-11-02 15:56:25',
-  '2017-11-02 15:56:25');
+CREATE OR REPLACE PROCEDURE CountUsers() BEGIN SELECT COUNT(*) AS count FROM Users; END;
+CREATE OR REPLACE PROCEDURE CountAdmins() BEGIN SELECT COUNT(*) AS count FROM Admins; END;
+
+INSERT INTO Admins VALUES(DEFAULT, 'Nithin Reddy', 'red@gmail.com', '528751011', DEFAULT, DEFAULT);
