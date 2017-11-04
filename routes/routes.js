@@ -70,7 +70,7 @@ module.exports = app => {
     UserController.countUsers
   )
   app.get(
-    '/api/user/countadmins',
+    '/api/admin/countadmins',
     UserController.countAdmins
   )
 }
