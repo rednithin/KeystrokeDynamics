@@ -3,7 +3,7 @@
   </warning>
   <v-layout column v-else>
     <v-flex xs12>
-      <panel title="Posts">
+      <panel title="Public Wall">
         <v-btn
           :to="{name: 'UserCreatePost'}" 
           slot="action"
@@ -16,8 +16,13 @@
           fab>
           <v-icon>add</v-icon>
         </v-btn>
-        <v-container fluid grid-list-md>
-          <v-layout row wrap>
+        <v-container fluid grid-list-md v-if="show">
+          <v-layout justify-center align-center v-if="posts.length === 0">
+            <v-flex>
+              There are no posts yet.
+            </v-flex>
+          </v-layout>
+          <v-layout row wrap v-else>
             <v-flex d-flex xs12 md6 v-for="(post, index) in posts" :key="post.id">
               <v-card>
                 <v-card-title primary-title>
@@ -51,11 +56,13 @@ export default {
   },
   data () {
     return {
-      posts: null
+      posts: null,
+      show: false
     }
   },
   async beforeMount () {
     this.posts = (await UserServices.getWall()).data
+    this.show = true
   }
 }
 </script>

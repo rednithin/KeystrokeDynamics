@@ -54,10 +54,10 @@ CREATE TABLE IF NOT EXISTS `Reports` (
   FOREIGN KEY (`ReportedId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
 
 
-INSERT INTO `Admins` (`id`,`name`,`email`,`password`,`createdAt`,`updatedAt`) VALUES (
+INSERT INTO Admins VALUES (
   DEFAULT,
   'Nithin Reddy',
   'red@gmail.com',
   '$2a$08$GTDWiZhkacEyj0IJRw31h.c4VTj0.H4eli15XSVsrT8WDjeNAgOJy',
-  '2017-11-02 15:56:25',
-  '2017-11-02 15:56:25');
+  DEFAULT,
+  DEFAULT);

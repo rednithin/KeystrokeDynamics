@@ -4,8 +4,13 @@
   <v-layout column v-else>
     <v-flex>
       <panel title="Following">
-        <v-container fluid grid-list-md>
-          <v-layout row wrap>
+        <v-container fluid grid-list-md v-if="show">
+          <v-layout justify-center align-center v-if="followings.length === 0">
+            <v-flex>
+              You need to follow someone first.
+            </v-flex>
+          </v-layout>
+          <v-layout row wrap v-else>
             <v-flex d-flex xs12 md6 v-for="following in followings" :key="following.id">
               <v-card color="indigo darken-1" dark>
                 <v-card-title primary class="title">{{following.name}}</v-card-title>
@@ -58,7 +63,8 @@ export default {
   data () {
     return {
       followings: [],
-      output: ''
+      output: '',
+      show: false
     }
   },
   methods: {
@@ -79,6 +85,7 @@ export default {
   },
   async beforeMount () {
     this.followings = (await UserServices.getFollowing({id: this.$store.state.user.id})).data
+    this.show = true
   }
 }
 </script>
