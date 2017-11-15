@@ -1,5 +1,5 @@
 # Socio
-A simple social network implemented using Vue, Vuetify, Vuex, Vue-Router, Tappy, NodeJS, MariaDB, Sequelize and BCrypt.
+A simple social network implemented using Vue, Vuetify, Vuex, Vue-Router, Tappy, NodeJS, ExpressJS, MariaDB, Sequelize and BCrypt.
 
 ## Installation instrutions
 From the root folder of the project issue the following command.
