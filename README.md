@@ -19,3 +19,6 @@ From the root folder of the project issue the following command.
 ```
 npm run dev
 ```
+
+## Demo
+The project is also hosted on [heroku](http://socio-dbms.herokuapp.com). (NOTE: Triggers and Procedures cannot be implemented on Ignite-Free version of ClearDB on heroku, hence those two are disabled)
