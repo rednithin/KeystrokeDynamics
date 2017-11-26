@@ -76,6 +76,7 @@ export default {
   methods: {
     async onSearchInput () {
       this.users = (await UserServices.getUsers(this.user)).data
+      this.users = this.users.filter(user => user.id !== this.$store.state.id)
     },
     async follow (id) {
       this.output = ''
@@ -96,6 +97,7 @@ export default {
   },
   async mounted () {
     this.users = (await UserServices.getUsers(this.user)).data
+    this.users = this.users.filter(user => user.id !== this.$store.state.id)
   }
 }
 </script>
